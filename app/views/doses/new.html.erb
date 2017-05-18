@@ -1,0 +1,8 @@
+<%= simple_form_for [@cocktail, @dose] do |f| %>
+   <%= f.error_notification %>
+   <%= f.input :ingredient do %>
+     <%= f.select :ingredient_id, Ingredient.all.map{ |l| [l.name, l.id, {:name => l.name.downcase}] } %>
+      <% end %>
+  <%= f.input :description %>
+  <%= f.submit Class: "btn btn-primary" %>
+<% end %>

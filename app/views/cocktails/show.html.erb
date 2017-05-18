@@ -5,12 +5,14 @@
     <th colspan="2">Ingredients</th>
   </thead>
   <tbody>
-    <% @cocktail.ingredients.each do |ingredient| %>
+    <% @cocktail.doses.each do |dose| %>
       <tr>
-        <td><%= ingredient.name %></td>
-        <td><%= ingredient.doses.first.description %></td>
+        <td><%= dose.ingredient.name %></td>
+        <td><%= dose.description %></td>
       </tr>
     <% end %>
   </tbody>
-
 </table>
+<%=link_to "Complete ingredients", new_cocktail_dose_path(@cocktail), Class: "btn btn-danger" %>
+  <%=link_to "Back", cocktails_path, Class: "btn btn-success" %>
+
