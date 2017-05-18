@@ -1,0 +1,9 @@
+<h1>Our cocktails</h1>
+
+<div class="list-group">
+  <% @cocktails.each do |cocktail|%></%>
+    <%= link_to cocktail.name, cocktail_path(cocktail), Class: 'list-group-item' %>
+  <% end %>
+</div>
+
+

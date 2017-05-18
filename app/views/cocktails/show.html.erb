@@ -1,0 +1,16 @@
+<h1><%= @cocktail.name %></h1>
+
+<table class="table table-responsive">
+  <thead>
+    <th colspan="2">Ingredients</th>
+  </thead>
+  <tbody>
+    <% @cocktail.ingredients.each do |ingredient| %>
+      <tr>
+        <td><%= ingredient.name %></td>
+        <td><%= ingredient.doses.first.description %></td>
+      </tr>
+    <% end %>
+  </tbody>
+
+</table>
