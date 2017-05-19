@@ -9,12 +9,11 @@ puts "cleaning database..."
 Ingredient.destroy_all
 Cocktail.destroy_all
 
-puts "creating ingredients..."
-
+puts "creating ingredient..."
 url = "http://www.thecocktaildb.com/api/json/v1/1/list.php?i=list"
-ingredient_serialized = open(url).read
-ingredient_parsed = JSON.parse(ingredient_serialized)
-ingredients = ingredient_parsed["drinks"]
+ingredients_serialized = open(url).read
+ingredients_parsed = JSON.parse(ingredients_serialized)
+ingredients = ingredients_parsed["drinks"]
 ingredients.each do |ingredient|
   Ingredient.create(name: ingredient["strIngredient1"])
 end
@@ -26,15 +25,21 @@ cocktail_serialized = open(url).read
 cocktail_parsed = JSON.parse(cocktail_serialized)
 cocktails = cocktail_parsed["drinks"]
 cocktails.each do |cocktail|
-  Cocktail.create(name: cocktail["strDrink"])
-end
-
-
-
-puts "creating doses..."
-Cocktail.all.each do |c|
-  rand(2..5).times do
-    Dose.create(cocktail: c, ingredient: Ingredient.all[rand(Ingredient.all.length)], description: "#{rand(20)} cl")
+  url = cocktail["strDrinkThumb"]
+  drink = Cocktail.new(name: cocktail["strDrink"])
+  drink.remote_photo_url = url
+  drink.save
+  url = "http://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=" + cocktail["idDrink"]
+  ingredient_serialized = open(url).read
+  ingredient_parsed = JSON.parse(ingredient_serialized)
+  ingredients = ingredient_parsed["drinks"]
+  ingredients.each do |ingredient|
+    puts "creating dose..."
+    15.times do |i|
+      if ingredient["strIngredient#{i+1}"] != ""
+        Dose.create(cocktail: drink, ingredient: Ingredient.where(name: ingredient["strIngredient#{i+1}"]).first, description: ingredient["strMeasure#{i+1}"])
+      end
+    end
   end
 end
 

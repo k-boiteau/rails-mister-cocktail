@@ -1,4 +1,11 @@
-/* -------------------------------------
- * CSS code specific to home page
- * (margin/padding adjustments)
- * ------------------------------------- */
+#list-cocktail {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.index-item {
+  width: 200px;
+  margin-bottom: 20px;
+}
