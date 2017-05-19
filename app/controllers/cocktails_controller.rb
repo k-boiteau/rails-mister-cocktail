@@ -1,5 +1,5 @@
 class CocktailsController < ApplicationController
-  before_action :set_cocktail, only: [:show]
+  before_action :set_cocktail, only: [:show, :destroy]
 
 
 def index
@@ -23,6 +23,11 @@ def create
         format.html { render :new }
     end
   end
+end
+
+def destroy
+  @cocktail.destroy
+  redirect_to cocktails_path
 end
 
 private

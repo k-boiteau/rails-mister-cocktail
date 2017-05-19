@@ -9,10 +9,12 @@
       <tr>
         <td><%= dose.ingredient.name %></td>
         <td><%= dose.description %></td>
+        <td><%= link_to "delete", dose_path(dose), method: :delete %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 <%=link_to "Complete ingredients", new_cocktail_dose_path(@cocktail), Class: "btn btn-danger" %>
+<%=link_to "Delete cocktail", cocktail_path(@cocktail), method: :delete, Class: "btn btn-danger" %>
   <%=link_to "Back", cocktails_path, Class: "btn btn-success" %>
 
